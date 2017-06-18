@@ -4,7 +4,7 @@
 #include <iostream>
 #include <stdlib.h>
 
-void framebuffer_size_callback(GLFWwindow* window, int wight, wint height);
+void framebuffer_size_callback(GLFWwindow* window, int wight, int height);
 void processInput(GLFWwindow* window);
 
 const unsigned int SCR_WIGHT = 800;
@@ -26,10 +26,10 @@ int main()
         exit(-1);
     }
 
-    glfwMakeCurrentContext(window);
+    glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-    if (!gladLoadGLloader((GLADloadproc)glfwGetProcAddress))
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
         cout << "Fail to inti glad" << endl;
         exit(-1);
@@ -40,7 +40,7 @@ int main()
         processInput(window);
         
         glfwSwapBuffers(window);
-        glfwPullEvents();
+        glfwPollEvents();
     }
 
 
@@ -51,7 +51,7 @@ int main()
 void processInput(GLFWwindow* window)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        glfwSetWindowShouldClose(true);
+        glfwSetWindowShouldClose(window, true);
 }
 
 void framebuffer_size_callback(GLFWwindow* window, int wight, int height)

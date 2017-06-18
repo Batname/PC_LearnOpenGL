@@ -2,6 +2,11 @@ include='include'
 
 echo "Setup OpenGL"
 
+echo "[Install debin packeges]"
+sudo apt-get install g++ cmake git
+sudo apt-get install libsoil-dev libglm-dev libassimp-dev libglew-dev libglfw3-dev
+
+
 echo "[INSTALL] stb_image"
 stb_image="$include/stb_image.h"
 if [ ! -f $stb_image ]; then
