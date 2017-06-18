@@ -1,6 +1,7 @@
 CMakeFiles/
 bin/
-includes/
+include/
 CMakeChache.txt
 Makefile
-
+src/glad.c
+src/std_image.cpp
