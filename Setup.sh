@@ -2,6 +2,12 @@ include='include'
 
 echo "Setup OpenGL"
 
+echo "[INSTALL] stb_image"
+stb_image="$include/stb_image.h"
+if [ ! -f $stb_image ]; then
+    wget https://raw.githubusercontent.com/nothings/stb/master/stb_image.h -P $include
+fi
+
 echo "[INSTALL] glm"
 glm="$include/glm"
 glm_ver='0.9.8.4'
