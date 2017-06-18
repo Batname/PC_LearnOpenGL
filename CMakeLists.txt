@@ -19,14 +19,19 @@ find_package(OpenGL REQUIRED)
 add_definitions(${OPENGL_DEFINITIONS})
 find_package(X11 REQUIRED)
 # https://stackoverflow.com/a/33768963/3191141
-set(LIBS ${GLFW3_LIBRARY} glfw X11 Xrandr Xinerama Xi Xxf86vm Xcursor GL dl pthread glfw assimp)
+set(LIBS glfw X11 Xrandr Xinerama Xi Xxf86vm Xcursor GL dl pthread glfw assimp)
 
 set(CHAPTERS
     1.getting_started
+    4.advanced_opengl
 )
 
 set(1.getting_started
     1.1.hello_window
+)
+
+set(4.advanced_opengl
+    6.1.cubemaps_skybox
 )
 
 configure_file(configuration/root_directory.h.in configuration/root_directory.h)
