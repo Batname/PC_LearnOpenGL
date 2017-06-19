@@ -8,3 +8,4 @@ Makefile
 src/glad.c
 src/std_image.cpp
 configuration/*.h
+!include/functions.h

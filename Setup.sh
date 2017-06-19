@@ -1,3 +1,5 @@
+#!/bin/bash
+
 include='include'
 
 echo "Setup OpenGL"
