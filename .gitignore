@@ -1,6 +1,5 @@
 CMakeFiles/
 bin/
-include/
 lib/
 CMakeCache.txt
 cmake_install.cmake
@@ -8,4 +7,5 @@ Makefile
 src/glad.c
 src/std_image.cpp
 configuration/*.h
+include/*
 !include/functions.h
