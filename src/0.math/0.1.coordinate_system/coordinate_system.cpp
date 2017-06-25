@@ -55,6 +55,76 @@ float coordinate_vertices_grid[] = {
 
 // ----------------------------------------------------
 
+// cube vertices
+// ----------------------------------------------------
+float cube_vertices[] =
+{
+	-0.5f, +0.5f, +0.5f,  // 0
+	+0.0f, +0.5f, +0.0f,	// Color
+	+0.5f, +0.5f, +0.5f,  // 1
+	+0.0f, +0.5f, +0.0f,	// Color
+	+0.5f, +0.5f, -0.5f,  // 2
+	+0.0f, +0.5f, +0.0f,  // Color
+	-0.5f, +0.5f, -0.5f,  // 3
+	+0.0f, +0.5f, +0.0f,  // Color
+
+	-0.5f, +0.5f, -0.5f,  // 4
+	+0.0f, +0.5f, +0.0f,  // Color
+	+0.5f, +0.5f, -0.5f,  // 5
+	+0.0f, +0.5f, +0.0f,  // Color
+	+0.5f, -0.5f, -0.5f,  // 6
+	+0.0f, +0.5f, +0.0f,  // Color
+	-0.5f, -0.5f, -0.5f,  // 7
+	+0.0f, +0.5f, +0.0f,  // Color
+
+	+0.5f, +0.5f, -0.5f,  // 8
+	+0.0f, +0.5f, +0.0f,  // Color
+	+0.5f, +0.5f, +0.5f,  // 9
+	+0.0f, +0.5f, +0.0f,  // Color
+	+0.5f, -0.5f, +0.5f,  // 10
+	+0.0f, +0.5f, +0.0f,  // Color
+	+0.5f, -0.5f, -0.5f,  // 11
+	+0.0f, +0.5f, +0.0f,  // Color
+
+	-0.5f, +0.5f, +0.5f,  // 12
+	+0.0f, +0.5f, +0.0f,  // Color
+	-0.5f, +0.5f, -0.5f,  // 13
+	+0.0f, +0.5f, +0.0f,  // Color
+	-0.5f, -0.5f, -0.5f,  // 14
+	+0.0f, +0.5f, +0.0f,  // Color
+	-0.5f, -0.5f, +0.5f,  // 15
+	+0.0f, +0.5f, +0.0f,  // Color
+
+	+0.5f, +0.5f, +0.5f,  // 16
+	+0.0f, +0.5f, +0.0f,  // Color
+	-0.5f, +0.5f, +0.5f,  // 17
+	+0.0f, +0.5f, +0.0f,  // Color
+	-0.5f, -0.5f, +0.5f,  // 18
+	+0.0f, +0.5f, +0.0f,  // Color
+	+0.5f, -0.5f, +0.5f,  // 19
+	+0.0f, +0.5f, +0.0f,  // Color
+
+	+0.5f, -0.5f, -0.5f,  // 20
+	+0.0f, +0.5f, +0.0f,  // Color
+	-0.5f, -0.5f, -0.5f,  // 21
+	+0.0f, +0.5f, +0.0f,  // Color
+	-0.5f, -0.5f, +0.5f,  // 22
+	+0.0f, +0.5f, +0.0f,  // Color
+	+0.5f, -0.5f, +0.5f,  // 23
+	+0.0f, +0.5f, +0.0f,  // Color
+};
+
+unsigned short cube_indices[] = {
+	0,   1,  2,  0,  2,  3, // Top
+	4,   5,  6,  4,  6,  7, // Front
+	8,   9, 10,  8, 10, 11, // Right
+	12, 13, 14, 12, 14, 15, // Left
+	16, 17, 18, 16, 18, 19, // Back
+	20, 22, 21, 20, 23, 22, // Bottom
+};
+
+//
+
 
 int main()
 {
@@ -95,7 +165,8 @@ int main()
 	glEnable(GL_DEPTH_TEST);
 
 	// Basic Shader
-	Shader basicShader("0.1.basic.vs", "0.1.basic.fs");
+	Shader coordinatesShader("0.1.coordinates.vs", "0.1.coordinates.fs");
+	Shader cubeShader("0.1.cube.vs", "0.1.cube.fs");
 
 
 	// Coordinate system
@@ -122,7 +193,22 @@ int main()
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 	// ----------------------------------------------------
 
-
+	// Cube
+	// ----------------------------------------------------
+	unsigned int cubeVAO, cubeVBO, cubeEBO;
+	glGenVertexArrays(1, &cubeVAO);
+	glGenBuffers(1, &cubeVBO);
+	glGenBuffers(1, &cubeEBO);
+	glBindVertexArray(cubeVAO);
+	glBindBuffer(GL_ARRAY_BUFFER, cubeVBO);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, cubeEBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(cube_vertices), &cube_vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(cube_indices), &cube_indices, GL_STATIC_DRAW);	
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+	// ----------------------------------------------------
 
 	while(!glfwWindowShouldClose(window))
 	{
@@ -141,41 +227,51 @@ int main()
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
 		// draw scene as normal
-		basicShader.use();
+		coordinatesShader.use();
 		glm::mat4 model;
 		glm::mat4 view = camera->GetViewMatrix();
 		glm::mat4 projection = glm::perspective(camera->Zoom, (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-		basicShader.setMat4("model", model);
-		basicShader.setMat4("view", view);
-		basicShader.setMat4("projection", projection);
+		coordinatesShader.setMat4("model", model);
+		coordinatesShader.setMat4("view", view);
+		coordinatesShader.setMat4("projection", projection);
 		// Draw main coordinate lines
-		basicShader.setVec3("lineColor", glm::vec3(1.0f));
+		coordinatesShader.setVec3("lineColor", glm::vec3(1.0f));
 		glBindVertexArray(coordinateVAO);
 		glDrawArrays(GL_LINES, 0, 6);
 		glBindVertexArray(0);
 
 		// Draw coordinate grid X
 		glBindVertexArray(coordinate_grid_VAO);
-		basicShader.setVec3("lineColor", glm::vec3(1.0f, 0.0f, 0.0f));
+		coordinatesShader.setVec3("lineColor", glm::vec3(1.0f, 0.0f, 0.0f));
 		for(int i = -5; i <= 5; i++)
 		{
 			glm::mat4 model;
 			model = glm::translate(model, glm::vec3(0.0f,  0.0f, (float)i));
 			model = glm::scale(model, glm::vec3(COORDINATE_SCALAR)); 
-			basicShader.setMat4("model", model);
+			coordinatesShader.setMat4("model", model);
 			glDrawArrays(GL_LINES, 0, 2);
 
 			model = glm::mat4();
 			model = glm::translate(model, glm::vec3((float)i,  0.0f, 0.0f));
 			model = glm::scale(model, glm::vec3(COORDINATE_SCALAR));
 			model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-			basicShader.setMat4("model", model);
+			coordinatesShader.setMat4("model", model);
 			glDrawArrays(GL_LINES, 0, 2);
 		}
 		glBindVertexArray(0);
 
+		// Draw first cube
+		cubeShader.use();
+		model = glm::mat4();
+		model = glm::translate(model, glm::vec3(-2.0f, 0.0f, -2.0f));
+		cubeShader.setMat4("model", model);
+		cubeShader.setMat4("view", view);
+		cubeShader.setMat4("projection", projection);
+
+		glBindVertexArray(cubeVAO);
+		glDrawElements(GL_TRIANGLES, NUM_ARRAY_ELEMENTS(cube_indices), GL_UNSIGNED_SHORT, 0);
+		glBindVertexArray(0);
 
 
 		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
@@ -188,6 +284,10 @@ int main()
 	glDeleteBuffers(1, &coordinateVBO);
 	glDeleteVertexArrays(1, &coordinate_grid_VAO);
 	glDeleteBuffers(1, &coordinate_grid_VBO);
+
+	glDeleteVertexArrays(1, &cubeVAO);
+	glDeleteBuffers(1, &cubeVBO);
+	glDeleteBuffers(1, &cubeEBO);
 
 	glfwTerminate();
 
