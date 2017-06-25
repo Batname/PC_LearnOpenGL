@@ -32,6 +32,7 @@ set(1.getting_started
 
 set(4.advanced_opengl
     6.1.cubemaps_skybox
+    6.2.cubemaps_enviroment_mapping
 )
 
 configure_file(configuration/root_directory.h.in configuration/root_directory.h)
