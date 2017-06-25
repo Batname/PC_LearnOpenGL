@@ -22,8 +22,13 @@ find_package(X11 REQUIRED)
 set(LIBS glfw X11 Xrandr Xinerama Xi Xxf86vm Xcursor GL dl pthread glfw assimp)
 
 set(CHAPTERS
+    0.math
     1.getting_started
     4.advanced_opengl
+)
+
+set(0.math
+  0.1.coordinate_system
 )
 
 set(1.getting_started
