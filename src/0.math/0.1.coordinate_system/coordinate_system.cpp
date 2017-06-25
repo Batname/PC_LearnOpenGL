@@ -13,6 +13,7 @@
 #include <functions.h>
 
 #include <iostream>
+#include <math.h>
 using namespace std;
 
 unsigned int loadCubemap(vector<string> faces);
@@ -210,6 +211,18 @@ int main()
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
 	// ----------------------------------------------------
 
+	// glm::vec3 v1(0.0f, 0.0f, 1.0f);
+	// glm::vec3 v2(0.0f, 0.0f, -3.0f);
+
+	// float l1 = glm::length(v1);
+	// float l2 = glm::length(v2);
+
+	// float my_dot = glm::dot(v1, v2);
+	// std::cout << my_dot << "--" << l1 <<
+	// "--" << l2 << "--" << 
+	// (my_dot / (l1 * l2)) << "--" <<
+	// acos((my_dot / (l1 * l2))) << std::endl;
+
 	while(!glfwWindowShouldClose(window))
 	{
 		// per-frame time logic
@@ -262,9 +275,28 @@ int main()
 		glBindVertexArray(0);
 
 		// Draw first cube
+
+		// ----- test rotation math
+		glm::vec3 cube1Loc(-2.0f, 0.0f, -4.0f);
+		glm::vec3 cube2Loc(-2.0f, 0.0f, -1.0f);
+
+		glm::vec3 cube1Rotator(0.0f, 0.0f, 1.0f);
+		glm::vec3 direction = cube1Loc - cube2Loc;
+
+		float cube1RotatorLength = glm::length(cube1Rotator);
+		float directionLength = glm::length(direction);
+		float dotProduct = glm::dot(cube1Rotator, direction);
+		float angleInRadians = acos((dotProduct / (cube1RotatorLength * directionLength)));
+
+
 		cubeShader.use();
 		model = glm::mat4();
-		model = glm::translate(model, glm::vec3(-2.0f, 0.0f, -4.0f));
+		model = glm::translate(model, cube1Loc);
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+
+		// test rotation
+		model = glm::rotate(model, angleInRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+
 		cubeShader.setMat4("model", model);
 		cubeShader.setMat4("view", view);
 		cubeShader.setMat4("projection", projection);
@@ -277,7 +309,8 @@ int main()
 		// Draw second cube
 		cubeShader.use();
 		model = glm::mat4();
-		model = glm::translate(model, glm::vec3(-2.0f, 0.0f, -1.0f));
+		model = glm::translate(model, cube2Loc);
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		cubeShader.setMat4("model", model);
 		cubeShader.setMat4("view", view);
 		cubeShader.setMat4("projection", projection);
