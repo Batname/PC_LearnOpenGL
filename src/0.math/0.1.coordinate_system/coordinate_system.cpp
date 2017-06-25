@@ -264,7 +264,20 @@ int main()
 		// Draw first cube
 		cubeShader.use();
 		model = glm::mat4();
-		model = glm::translate(model, glm::vec3(-2.0f, 0.0f, -2.0f));
+		model = glm::translate(model, glm::vec3(-2.0f, 0.0f, -4.0f));
+		cubeShader.setMat4("model", model);
+		cubeShader.setMat4("view", view);
+		cubeShader.setMat4("projection", projection);
+
+		glBindVertexArray(cubeVAO);
+		glDrawElements(GL_TRIANGLES, NUM_ARRAY_ELEMENTS(cube_indices), GL_UNSIGNED_SHORT, 0);
+		glBindVertexArray(0);
+
+
+		// Draw second cube
+		cubeShader.use();
+		model = glm::mat4();
+		model = glm::translate(model, glm::vec3(-2.0f, 0.0f, -1.0f));
 		cubeShader.setMat4("model", model);
 		cubeShader.setMat4("view", view);
 		cubeShader.setMat4("projection", projection);
