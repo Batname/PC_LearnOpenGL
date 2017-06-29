@@ -24,6 +24,7 @@ set(LIBS glfw X11 Xrandr Xinerama Xi Xxf86vm Xcursor GL dl pthread glfw assimp)
 set(CHAPTERS
     1.getting_started
     4.advanced_opengl
+    in_practice 
 )
 
 set(1.getting_started
@@ -32,6 +33,10 @@ set(1.getting_started
 
 set(4.advanced_opengl
     6.1.cubemaps_skybox
+)
+
+set(in_practice
+    my_game
 )
 
 configure_file(configuration/root_directory.h.in configuration/root_directory.h)
