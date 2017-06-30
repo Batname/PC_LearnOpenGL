@@ -1,7 +1,7 @@
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
+#ifndef GAME_H
+#define GAME_H
 
-#pragma once
+#include "includes.h"
 
 enum GameState
 {
@@ -27,3 +27,5 @@ public:
     void Render();
     
 };
+
+#endif

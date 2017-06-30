@@ -11,11 +11,9 @@
 
 #include <map>
 #include <string>
-
-#include <GL/glew.h>
-
-#include "texture.h"
 #include "shader.h"
+#include "texture.h"
+#include "includes.h"
 
 
 // A static singleton ResourceManager class that hosts several
