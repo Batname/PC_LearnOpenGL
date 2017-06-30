@@ -19,7 +19,7 @@ find_package(OpenGL REQUIRED)
 add_definitions(${OPENGL_DEFINITIONS})
 find_package(X11 REQUIRED)
 # https://stackoverflow.com/a/33768963/3191141
-set(LIBS glfw X11 Xrandr Xinerama Xi Xxf86vm Xcursor GL dl pthread glfw assimp)
+set(LIBS glfw X11 Xrandr Xinerama Xi Xxf86vm Xcursor GL dl pthread glfw assimp SOIL)
 
 set(CHAPTERS
     0.math
