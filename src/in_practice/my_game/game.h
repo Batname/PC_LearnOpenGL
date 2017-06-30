@@ -14,7 +14,7 @@ class Game
 {
 public:
     GameState State;
-    GLboolean Key[1024];
+    GLboolean Keys[1024];
     GLuint Width, Height;
 
 
